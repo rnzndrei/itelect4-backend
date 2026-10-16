@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+// Keep one connection promise. Vercel calls this on every request,
+// but we only want to connect ONCE per instance.
 let connection: Promise<typeof mongoose> | null = null;
 
 export function connectDB(): Promise<typeof mongoose> {
@@ -17,7 +19,7 @@ export function connectDB(): Promise<typeof mongoose> {
         return m;
       })
       .catch((err: unknown) => {
-        connection = null;
+        connection = null; // Reset so next request can try again
         throw err;
       });
   }

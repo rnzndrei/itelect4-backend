@@ -38,6 +38,9 @@ export type UserDoc = Omit<User, "id"> & {
   password: string;
 };
 
+// Omit "id" because MongoDB generates _id automatically
+export type BookDoc = Omit<Book, "id">;
+
 // What the database actually stores for a Transaction.
 // userId is an ObjectId pointing to a User document.
 export type TransactionDoc = Omit<Transaction, "id" | "userId" | "requestDate" | "dueDate" | "returnDate"> & {

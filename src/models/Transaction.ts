@@ -1,19 +1,18 @@
 import { Schema, model } from "mongoose";
 import type { TransactionDoc } from "../types/index";
 
-const transactionSchema = new Schema<TransactionDoc>(
-  {
-    // Rule 1: Required ObjectId referencing the User collection
-    userId: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
-    
-    bookId: {
-      type: Number,
-      required: true,
-    },
+const transactionSchema = new Schema<TransactionDoc>({
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  
+  bookId: {
+    type: Schema.Types.ObjectId,
+    ref: "Book",
+    required: true,
+  },
 
     // Rule 2: Enum validation
     status: {

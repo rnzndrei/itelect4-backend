@@ -43,9 +43,14 @@ transactionRouter.get(
 transactionRouter.post(
   "/",
   async (req: Request<unknown, unknown, NewTransactionBody>, res: Response) => {
+    // Calculate due date: 14 days from now
+    const dueDate = new Date();
+    dueDate.setDate(dueDate.getDate() + 14);
+
     const transaction = await Transaction.create({
       ...req.body,
-      userId: req.userId, // Owner comes off the verified token, NOT the request body
+      userId: req.userId,
+      dueDate: dueDate,
     });
 
     res.status(201).json(transaction);

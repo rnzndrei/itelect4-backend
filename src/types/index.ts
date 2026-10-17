@@ -19,10 +19,11 @@ export interface Book {
   description: string;
 }
 
+// Update the main interface
 export interface Transaction {
   id: number;
   userId: number;
-  bookId: number;
+  bookId: string; // <-- CHANGE THIS from number to string
   status: "REQUESTED" | "APPROVED" | "BORROWED" | "RETURNED" | "OVERDUE";
   requestDate: Date;
   dueDate: Date;
@@ -43,8 +44,10 @@ export type BookDoc = Omit<Book, "id">;
 
 // What the database actually stores for a Transaction.
 // userId is an ObjectId pointing to a User document.
-export type TransactionDoc = Omit<Transaction, "id" | "userId" | "requestDate" | "dueDate" | "returnDate"> & {
+// Update the Doc type
+export type TransactionDoc = Omit<Transaction, "id" | "userId" | "bookId" | "requestDate" | "dueDate" | "returnDate"> & {
   userId: Types.ObjectId;
+  bookId: Types.ObjectId; // <-- CHANGE THIS
   requestDate: Date;
   dueDate: Date;
   returnDate: Date | null;

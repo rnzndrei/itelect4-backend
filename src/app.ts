@@ -6,9 +6,11 @@ import { connectDB } from "./config/db";
 import { authRouter } from "./routes/auth";
 import { transactionRouter } from "./routes/transactions";
 import { bookRouter } from "./routes/books";
+import { aiRouter } from "./routes/ai";
 
 export const app = express();
 
+app.use("/api/ai", aiRouter);
 // CORS: Only allow specific origins
 const ALLOWED_ORIGINS = (process.env.CORS_ORIGIN ?? "").split(",").map((o) => o.trim()).filter((o) => o !== "");
 app.use(cors({ origin: ALLOWED_ORIGINS }));
